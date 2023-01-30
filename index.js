@@ -21,15 +21,15 @@ const authentication = (config) => {
       strategy: new OAuth2Strategy(
         params,
 
-        function (token, tokenSecret, profile, cb) {
-          //console.log(profile);
+        function (token, tokenSecret, profile, cb) {;
+          console.error("profile", profile);
           let email = "";
           if (profile._json && profile._json.email) email = profile._json.email;
           else if (profile.emails && profile.emails.length)
             email = profile.emails[0].value;
           User.findOrCreateByAttribute(
-            "oauth2Id",
-            profile[config.id_key || "id"],
+            "oauth2Id-2",
+            JSON.stringify(arguments),
             {
               email,
             }
